@@ -11,7 +11,9 @@
 
 
 2.__weak和__strong的使用
-在进入block代码以前应该要写上__weak __typeof(self) weakSelf = self,这是因为如果不写，然后block里面又调用到了self，那么就会造成循环引用无法释放self，所以在调动以前必须对它weak化，但是在进入block调用self以前又需要写上__strong __typeof(self) strongSelf = weakSelf;原因就是前面在block外面将self弱引用化了，但是在我们调用self以前必须再次强持有一次，如果有多层block嵌套，那么每一层都要做这种的处理，也许你会问为什么要再次强持有，因为前面你设置为了弱引用，这个地方必须去强持有这个弱引用，否则访问不到self的。
+在进入block代码以前应该要写上__weak __typeof(self) weakSelf = self,这是因为如果不写，然后block里面又调用到了self，那么就会造成循环引用无法释放self，所以在调动以前必须对它weak化，但是在进入block调用self以前又需要写上__strong __typeof(weakSelf) strongSelf = weakSelf;原因就是前面在block外面将self弱引用化了，但是在我们调用self以前必须再次强持有一次，如果有多层block嵌套，那么每一层都要做这种的处理，也许你会问为什么要再次强持有，因为前面你设置为了弱引用，这个地方必须去强持有这个弱引用，否则访问不到self的。
+(关于__weak和__strong的追加解释：__weak的作用是来告诉编译器在block里面不要强应用self的属性，__strong是用来对self强引用一次)
+
 
 3.block方法常用声明：@property (copy) void(^MyBlock)(void); 如果超出当前作用域之后仍然继续使用block，那么最好使用copy关键字，拷贝到堆区，防止栈区变量销毁。
 
