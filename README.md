@@ -144,3 +144,5 @@ CFBundleURLTypes 自定义url，用于利用url弹回程序
 CFBundleLocalizations 本地资源的本地化语言，用于itunes页面左下角显示本地话语种  
 CFBundleDevelopmentRegion 也是本地化相关，如果用户所在地没有相应的语言资源，则用这个key的value来作为默认  
 
+EXC_BAD_ACCESS ，90%的错误来源在于对一个已经释放的对象进行release操作
+[NSMutable array]等类方法慎用，因为这生成的是一个自动释放的对象
