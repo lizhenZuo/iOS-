@@ -146,3 +146,7 @@ CFBundleDevelopmentRegion 也是本地化相关，如果用户所在地没有相
 
 EXC_BAD_ACCESS ，90%的错误来源在于对一个已经释放的对象进行release操作
 [NSMutable array]等类方法慎用，因为这生成的是一个自动释放的对象
+
+
+如果要在block内修改block外声明的栈变量，那么一定要对该变量加__block标记；
+static变量是不允许添加__block标记的
